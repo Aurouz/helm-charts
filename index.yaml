@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  generic:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2024-01-31T09:19:27.865636329Z"
+    description: A Helm chart for in-house built apps.
+    digest: e14bcdb837680a041ae9cda2f39484249eac1e4b3098ec5f6ee359bbf3a8e14d
+    name: generic
+    type: application
+    urls:
+    - https://github.com/Aurouz/helm-charts/releases/download/generic-0.0.1/generic-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-01-31T09:19:27.865643929Z"
