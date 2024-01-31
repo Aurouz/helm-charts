@@ -18,11 +18,10 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "generic.labels" . | nindent 4 }}
-  {{- if not (empty $annotations) }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-  {{- toYaml $annotations | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
-
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
