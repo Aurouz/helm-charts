@@ -35,7 +35,7 @@ envs: []
   # ENVAR_1: DUMMY-VALUE1
   # ENVAR_2: DUMMY-VALUE2
 
-# number of app replicas
+# number of app replicas for deployment
 replicaCount: 1
 
 ## image details
