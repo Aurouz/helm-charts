@@ -52,6 +52,14 @@ jobs:
         with:
           quiet: true
           directory: charts/
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+          
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
 
       - name: Comment on PR
         uses: mshick/add-pr-comment@v2
