@@ -6,10 +6,6 @@ metadata:
   name: {{ include "generic.fullname" . }}
   labels:
     {{- include "generic.labels" . | nindent 4 }}
-  {{- if .Values.appName }}
-  annotations:
-    argocd.argoproj.io/tracking-id: "{{ .Values.appName }}:PersistentVolumeClaim:{{ .Release.Namespace }}/{{ include "generic.fullname" . }}"
-  {{- end }}
 spec:
   accessModes:
     - ReadWriteOnce
