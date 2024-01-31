@@ -130,7 +130,6 @@ extraVolumeMounts: []
 ## format: APP_PORT_NAME: APP_PORT_NUMBER
 appPorts:
    http: 80
-  #  metrics: 8090
 
 ## how the app is accesible within the cluster
 service:
