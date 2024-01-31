@@ -1,0 +1,32 @@
+{{- if .Values.metrics.port }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "generic.fullname" . }}
+  labels:
+    {{- include "generic.labels" . | nindent 4 }}
+    # {{- if .Values.extraServiceLabels }}
+    # {{- include "generic.extraServiceLabels" . | nindent 4 }}
+    # {{- end }}
+  {{- if .Values.appName }}
+  annotations:
+    argocd.argoproj.io/tracking-id: "{{ .Values.appName }}:monitoring.coreos.com/ServiceMonitor:{{ .Release.Namespace }}/{{ include "generic.fullname" . }}"
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "generic.labels" . | nindent 6 }}
+      # {{- if .Values.extraServiceLabels }}
+      # {{- include "generic.extraServiceLabels" . | nindent 6 }}
+      # {{- end }}
+  endpoints:
+    - port: "{{ .Values.metrics.port }}"
+      interval: "{{ .Values.metrics.interval | default "15s" }}"
+      path: "{{ .Values.metrics.path | default "/actuator/prometheus" }}"
+      scheme: http
+      metricRelabelings:
+      - sourceLabels: [__name__]
+        targetLabel: metric_name
+        regex: ^(.*)$
+        action: keep
+{{- end }}

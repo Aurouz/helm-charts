@@ -1,0 +1,14 @@
+{{ if .Values.envs }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "generic.fullname" . }}
+  labels:
+    {{- include "generic.labels" . | nindent 4 }}
+  {{- if .Values.appName }}
+  annotations:
+    argocd.argoproj.io/tracking-id: "{{ .Values.appName }}:ConfigMap:{{ .Release.Namespace }}/{{ include "generic.fullname" . }}"
+  {{- end }}
+data:
+  {{- toYaml .Values.envs | nindent 2 }}
+{{ end }}
