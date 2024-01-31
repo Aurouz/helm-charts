@@ -55,6 +55,7 @@ args: ""
 
 ## existing K8s secret name containing auth details
 imagePullSecrets: []
+  # - name: my-private-repo-secret
 
 # specify this to override name of all resources
 fullnameOverride: ""
