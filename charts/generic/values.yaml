@@ -41,7 +41,7 @@ replicaCount: 1
 ## image details
 image:
   repository: docker.io/nginx
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## image tag serves as the app version
   tag: "stable-alpine"
 
@@ -211,11 +211,11 @@ readinessProbe: {}
   # initialDelaySeconds: 5
   # periodSeconds: 10
 
-resources: {}
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
   #   cpu: 100m
   #   memory: 128Mi
 

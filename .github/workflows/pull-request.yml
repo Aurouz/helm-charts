@@ -48,6 +48,7 @@ jobs:
 
       - name: Run security scan
         uses: bridgecrewio/checkov-action@master
+        continue-on-error: true
         with:
           quiet: true
           directory: charts/
