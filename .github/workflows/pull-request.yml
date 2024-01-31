@@ -32,15 +32,6 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Comment on PR
-        uses: mshick/add-pr-comment@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          message-success: '@${{ github.actor }} validation successful :tada'
-          message-failure: '@${{ github.actor }} Yikes! You better fix it before anyone else finds out! [Build](https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }}/checks) has Failed!'
-          allow-repeats: false
-
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct lint --target-branch ${{ github.event.repository.default_branch }}
@@ -58,3 +49,12 @@ jobs:
         with:
           quiet: true
           directory: charts/
+
+      - name: Comment on PR
+        uses: mshick/add-pr-comment@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message-success: '@${{ github.actor }} validation successful :tada'
+          message-failure: '@${{ github.actor }} Oops! You better fix it before anyone else finds out! [Build](https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }}/checks) has Failed!'
+          allow-repeats: false
