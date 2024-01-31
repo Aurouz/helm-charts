@@ -129,7 +129,7 @@ extraVolumeMounts: []
 ## ports on which the app container is listening on
 ## format: APP_PORT_NAME: APP_PORT_NUMBER
 appPorts:
-   http: 80
+  http: 80
 
 ## how the app is accesible within the cluster
 service:
