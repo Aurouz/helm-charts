@@ -1,6 +1,8 @@
 apiVersion: v2
 name: generic
 description: A Helm chart for in-house built apps.
+maintainers: # (optional)
+  - name: Alex
 
 # A chart can be either an 'application' or a 'library' chart.
 #
