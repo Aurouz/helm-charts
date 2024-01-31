@@ -1,4 +1,4 @@
-{{- if .Values.metrics.port }}
+{{- if .Values.metrics.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -8,11 +8,6 @@ metadata:
     # {{- if .Values.extraServiceLabels }}
     # {{- include "generic.extraServiceLabels" . | nindent 4 }}
     # {{- end }}
-  {{- if .Values.appName }}
-  annotations:
-    argocd.argoproj.io/tracking-id: "{{ .Values.appName }}:monitoring.coreos.com/ServiceMonitor:{{ .Release.Namespace }}/{{ include "generic.fullname" . }}"
-  {{- end }}
-spec:
   selector:
     matchLabels:
       {{- include "generic.labels" . | nindent 6 }}

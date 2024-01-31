@@ -1,3 +1,4 @@
+{{- if .Values.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,9 +11,6 @@ metadata:
     {{- end }}
     {{- if and .Values.metrics.enabled (eq .Values.metrics.source "service") }}
     {{- include "generic.metrics" . | nindent 4 }}
-    {{- end }}
-    {{- if .Values.appName }}
-    argocd.argoproj.io/tracking-id: "{{ .Values.appName }}:Service:{{ .Release.Namespace }}/{{ include "generic.fullname" . }}"
     {{- end }}
   labels:
     {{- include "generic.labels" . | nindent 4 }}
@@ -42,3 +40,4 @@ spec:
     {{- if .Values.extraPodLabels }}
     {{- include "generic.extraPodLabels" . | nindent 4 }}
     {{- end }}
+{{- end }}

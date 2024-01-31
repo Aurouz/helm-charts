@@ -35,15 +35,15 @@ envs: []
   # ENVAR_1: DUMMY-VALUE1
   # ENVAR_2: DUMMY-VALUE2
 
-# number of app replicas
+# number of app replicas for deployment
 replicaCount: 1
 
 ## image details
 image:
-  repository: DUMMY-REPO
-  pullPolicy: IfNotPresent
+  repository: docker.io/nginx
+  pullPolicy: Always
   ## image tag serves as the app version
-  tag: "DUMMY-TAG"
+  tag: "stable-alpine"
 
 ## command to execute
 command: ""
@@ -128,19 +128,25 @@ extraVolumeMounts: []
 
 ## ports on which the app container is listening on
 ## format: APP_PORT_NAME: APP_PORT_NUMBER
-appPorts: []
-  #  http: 80
-  #  metrics: 8090
+appPorts:
+  http: 80
 
 ## how the app is accesible within the cluster
 service:
+  enabled: true
   type: ClusterIP
-  ## if enabled, "appPorts" will be used in Service
+
+  ## if enabled, ALL "appPorts" will be used in Service
   useAllAppPorts: false
+
   ## when "useAllAppPorts: false", only ports below will be exposed via Service
   ## format: APP_PORT_NAME: SERVICE_PORT_NUMBER
-  ports: []
-    # http: 80
+  #
+  ## this means the fraffic will flow like this:
+  ##    appPorts.<APP_PORT_NUMBER> -> service.ports.<SERVICE_PORT_NUMBER>
+  ##    matching by APP_PORT_NAME
+  ports:
+    http: 8080
 
 ## exposing the app to outside of the cluster
 ingress:
@@ -163,8 +169,8 @@ ingress:
   #      - chart-example.local
 
 ## metrics collection configuration
-## metrics collection configuration
 metrics:
+  enabled: false
   ## Service port at which metrics should be collected
   port: "9090"
   ## path on which the metrics are being served [default /actuator/prometheus
@@ -205,11 +211,11 @@ readinessProbe: {}
   # initialDelaySeconds: 5
   # periodSeconds: 10
 
-resources: {}
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
   #   cpu: 100m
   #   memory: 128Mi
 
