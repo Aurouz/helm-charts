@@ -25,9 +25,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "generic.labels" -}}
-{{/* 
-helm.sh/chart: {{ include "generic.chart" . }} -- Removing this as this value changes with chart version and it is immutable for deployments
-*/}}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/appName: {{ include "generic.fullname" . }}
 app.kubernetes.io/release: {{ .Release.Name }}
