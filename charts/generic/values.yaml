@@ -36,10 +36,10 @@ envs:
   # ENVAR_2: DUMMY-VALUE2
 
 ## load envars from an existing secret
-envsFromExistingSecret: "dummy-secret"
+envsFromExistingSecret: ""
 
 ## load envars from an existing configMap
-envsFromExistingConfigMap: "dummy-configmap"
+envsFromExistingConfigMap: ""
 
 # number of app replicas for deployment
 replicaCount: 1

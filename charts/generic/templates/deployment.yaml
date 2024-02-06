@@ -54,13 +54,13 @@ spec:
             - configMapRef:
                 name: {{ include "generic.fullname" . }}
             {{- end }}
-            {{- if .Values.envsFromExistingSecret }}
+            {{- if .Values.envsFromExistingConfigMap }}
             - configMapRef:
-                name: {{ .Values.envsFromExistingSecret }}
-            {{- end }}
-            {{- if .Values.envsFromExistingConfigMap}}
-            - secretRef:
                 name: {{ .Values.envsFromExistingConfigMap }}
+            {{- end }}
+            {{- if .Values.envsFromExistingSecret }}
+            - secretRef:
+                name: {{ .Values.envsFromExistingSecret }}
             {{- end }}
             {{- if .Values.externalSecrets.enabled }}
             - secretRef:
