@@ -48,17 +48,25 @@ spec:
           {{- if .Values.args }}
           args: {{ .Values.args }}
           {{- end }}
-          {{- if or .Values.envs .Values.externalSecrets.enabled }}
+          {{- if or .Values.envs .Values.externalSecrets.enabled .Values.envsFromExistingSecret .Values.envsFromExistingConfigMap }}
           envFrom:
-          {{- if .Values.envs }}
-          - configMapRef:
-              name: {{ include "generic.fullname" . }}
-          {{- end }}
-          {{- if .Values.externalSecrets.enabled }}
-          - secretRef:
-              name: {{ include "generic.fullname" . }}
-          {{- end }}
-          {{- end }}
+            {{- if .Values.envs }}
+            - configMapRef:
+                name: {{ include "generic.fullname" . }}
+            {{- end }}
+            {{- if .Values.envsFromExistingConfigMap }}
+            - configMapRef:
+                name: {{ .Values.envsFromExistingConfigMap }}
+            {{- end }}
+            {{- if .Values.envsFromExistingSecret }}
+            - secretRef:
+                name: {{ .Values.envsFromExistingSecret }}
+            {{- end }}
+            {{- if .Values.externalSecrets.enabled }}
+            - secretRef:
+                name: {{ include "generic.fullname" . }}
+            {{- end }}
+            {{- end }}
           {{- if .Values.securityContext }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
